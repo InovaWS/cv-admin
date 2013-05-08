@@ -1,13 +1,8 @@
 <?php
 $initialize = function() {
 
-if (!isset($_ENV['SLIM_MODE'])) {
-	$name = 'SLIM_MODE';
-	while ( isset($_SERVER["REDIRECT_$name"]) )
-		$name = "REDIRECT_$name";
-	
-	$_ENV['SLIM_MODE'] = isset($_SERVER[$name]) ? $_SERVER[$name] : 'production';
-}
+if (!isset($_ENV['SLIM_MODE']))
+	$_ENV['SLIM_MODE'] = 'production';
 
 define('INVOKER_DIR', rtrim(getcwd(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
 define('PROTECTED_DIR', rtrim(realpath(__DIR__ . '/protected'), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
@@ -76,5 +71,6 @@ if (!($app instanceof \Slim\Slim))
 $app->run();
 };
 
+$_ENV['SLIM_MODE'] = 'development';
 $initialize();
 unset($initialize);

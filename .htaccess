@@ -115,7 +115,7 @@ SetEnvIf brokenvary 1 force-no-vary
 <IfModule mod_rewrite.c>
 Options +FollowSymlinks
 RewriteEngine On
-RewriteBase /github/cv2-admin/
+#RewriteBase /github/cv-admin/
 </IfModule>
 
 # Rewrite "example.com -> www.example.com".
@@ -177,10 +177,6 @@ Satisfy All
 #</IfModule>
 
 <IfModule mod_rewrite.c>
-SetEnv SLIM_MODE development
-
-RewriteRule ^(.*/)?index\.php$ $1 [R,QSA]
-
 RewriteCond %{SCRIPT_FILENAME} !-f
-RewriteRule ^(.*)$ index.php [L,QSA,E=a:$1]
+RewriteRule . index.php [L,QSA]
 </IfModule>

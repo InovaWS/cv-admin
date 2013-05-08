@@ -1,0 +1,15 @@
+{% extends 'clientes/base.twig' %}
+
+{% set pagina = {titulo: 'Apagar ' ~ cliente.nome} %}
+{% set menu = 'apagar' %}
+
+{% block painel %}
+<form action="{{ currentPath() }}" method="post" class="well well-large" style="text-align: center">
+	<h3>Atenção!</h3>
+	<p>
+		Deseja realmente apagar o registro do cliente <a href="{{ url('/cliente', {id: cliente.id}) }}">{{ cliente.nome }}</a>?
+	</p>
+	<button type="submit" class="btn btn-primary">Sim</button>
+	<a href="{{ url('/clientes') }}" class="btn">Não</a>
+</form>
+{% endblock %}

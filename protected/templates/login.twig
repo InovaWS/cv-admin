@@ -1,0 +1,56 @@
+{% extends 'base.twig' %}
+
+{% block estilos %}
+<style>
+html, body {
+	height: 100%;
+}
+
+.well {
+	width: 250px;
+	position: relative;
+	top: 50%;
+	margin: -150px auto;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(function() {
+	$('input[name=usuario]').focus();
+});
+</script>
+{% endblock %}
+
+{% block conteudo %}
+<div class="well well-large">
+	<h1>Login</h1>
+	
+	{% if flash.nao_encontrado %}
+	<div class="alert alert-error">Usuário e/ou senha incorretos.</div>
+	{% endif %}
+	
+	<form action="{{ url('/login') }}" method="post" class="form-vertical">
+		<div class="control-group">
+			<label class="control-label">Usuário</label>
+			<div class="controls row-fluid">
+				<input type="text" name="usuario" class="span12" value="{{ usuario }}" required>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">Senha</label>
+			<div class="controls row-fluid">
+				<input type="password" name="senha" class="span12" value="" required>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn">Entrar</button>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}

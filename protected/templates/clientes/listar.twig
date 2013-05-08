@@ -1,0 +1,52 @@
+{% extends 'painel.twig' %}
+
+{% set pagina = {titulo: 'Clientes'} %}
+
+{% block conteudo_interno %}
+<hgroup class="page-header">
+	<h1>Clientes</h1>
+</hgroup>
+
+<form action="{{ currentPath() }}" method="get" class="form-search">
+	{% if not tipo %}<strong>{% endif %}<a href="{{ url('/clientes') }}">Todos</a>{% if not tipo %}</strong>{% endif %} &middot;
+	{% for tipo_i in tipos %}
+	{% if tipo == tipo_i.id %}<strong>{% endif %}<a href="{{ url('/clientes/' ~ tipo_i.id) }}">{{ tipo_i.descricao }}</a>{% if tipo == tipo_i.id %}</strong>{% endif %} &middot;
+	{% endfor %}
+	<label class="control-label">Pesquisar</label>
+	<input type="text" name="pesquisa" class="span4" value="{{ pesquisa }}">
+	<button type="submit" class="btn">Buscar</button>
+</form>
+
+<table class="table table-striped table-hover">
+	<tbody>
+		{% for cliente in clientes %}
+		<tr>
+			<td>{{ cliente.data | date('d/m/Y') }}</td>
+			<td>
+				<div>{{ cliente.nome }}</div>
+				<div class="muted">{{ cliente.email }}</div>
+				<div><small>
+					<a href="{{ url('/cliente', {id: cliente.id}) }}">Visualizar</a> &middot;
+					<a href="{{ url('/cliente/veiculos', {id: cliente.id}) }}">Veículos</a> &middot;
+					<a href="{{ url('/cliente/faturas', {id: cliente.id}) }}">Faturas</a> &middot;
+					<a href="{{ url('/cliente/alterar', {id: cliente.id}) }}">Alterar</a> &middot;
+					<a href="{{ url('/cliente/apagar', {id: cliente.id}) }}">Apagar</a>
+				</small></div>
+			</td>
+			<td>
+				<div>{{ cliente.razao_social ? cliente.razao_social : '-' }}</div>
+				<div>{{ cliente.telefone }}</div>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<div class="pagination pagination-centered">
+	<ul>
+		{% for i in 1..pCount %}
+		<li{% if i==p %} class="active"{% endif %}><a href="{{ urlFor('/clientes', {tipo: tipo, pagina: p}) ~ '?pesquisa=' ~ (pesquisa | url_encode)  }}">{{ i }}</a></li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

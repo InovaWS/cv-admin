@@ -1,0 +1,84 @@
+{% extends 'clientes/base.twig' %}
+
+{% set menu = 'alterar' %}
+{% set pagina = {titulo: 'Alterar ' ~ cliente.nome} %}
+
+{% block painel %}
+<form action="{{ currentPath() }}" method="post" class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label">Nome</label>
+		<div class="controls">
+			<input type="text" name="nome" value="{{ cliente.nome }}" required>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Tipo</label>
+		<div class="controls">
+			{% for tipo in tipos %}
+			<label class="radio"><input type="radio" name="tipo" value="{{ tipo.id }}"{% if tipo.id==cliente.id_tipo %} checked="checked"{% endif %}> {{ tipo.descricao }}</label>
+			{% endfor %}
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Bloqueado</label>
+		<div class="controls">
+			<label class="radio"><input type="radio" name="bloqueado" value="0"{% if not cliente.bloqueado %} checked="checked"{% endif %}> Não</label>
+			<label class="radio"><input type="radio" name="bloqueado" value="1"{% if cliente.bloqueado %} checked="checked"{% endif %}> Sim</label>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Razão Social</label>
+		<div class="controls">
+			<input type="text" name="razao_social" value="{{ cliente.razao_social }}">
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">CPF</label>
+		<div class="controls">
+			<input type="text" name="cpf" value="{{ cliente.cpf }}" maxlength="11" pattern="\d{11}">
+			<div class="help-block">Somente dígitos</div>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">CNPJ</label>
+		<div class="controls">
+			<input type="text" name="cnpj" value="{{ cliente.cnpj }}" maxlength="14" pattern="\d{14}">
+			<div class="help-block">Somente dígitos</div>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Telefone fixo</label>
+		<div class="controls">
+			<input type="text" name="telefone_fixo" value="{{ cliente.telefone_fixo }}" maxlength="11" pattern="\d{2}\d{7,9}" required>
+			<div class="help-block">Somente dígitos, com DDD</div>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Telefone celular</label>
+		<div class="controls">
+			<input type="text" name="telefone_celular" value="{{ cliente.telefone_celular }}" maxlength="11" pattern="\d{2}\d{7,9}">
+			<div class="help-block">Somente dígitos, com DDD</div>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">E-mail</label>
+		<div class="controls">
+			<input type="email" name="email" value="{{ cliente.email }}" required>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<div class="controls">
+			<button type="submit" class="btn btn-primary">Salvar</button>
+		</div>
+	</div>
+</form>
+{% endblock %}

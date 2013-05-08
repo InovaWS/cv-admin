@@ -1,0 +1,55 @@
+{% extends 'clientes/base.twig' %}
+
+{% set pagina = {titulo: cliente.nome} %}
+{% set menu = 'visualizar' %}
+
+{% block painel %}
+<div class="row-fluid">
+	<div class="span6">
+		<dl class="dl-horizontal">
+			<dt>ID</dt>
+			<dd>{{ '#' ~ cliente.id }}</dd>
+			
+			<dt>Nome</dt>
+			<dd>{{ coalesce(cliente.nome, '-') }}</dd>
+			
+			<dt>Razão social</dt>
+			<dd>{{ coalesce(cliente.razao_social, '-') }}</dd>
+			
+			<dt>CPF</dt>
+			<dd>{{ coalesce(cliente.cpf, '-') }}</dd>
+			
+			<dt>CNPJ</dt>
+			<dd>{{ coalesce(cliente.cnpj, '-') }}</dd>
+			
+			<dt>Telefone celular</dt>
+			<dd>{{ coalesce(cliente.celular, '-') }}</dd>
+			
+			<dt>Telefone fixo</dt>
+			<dd>{{ coalesce(cliente.telefone, '-') }}</dd>
+			
+			<dt>Data de cadastro</dt>
+			<dd>{{ cliente.data ? cliente.data | date('d/m/Y H:i') : '-' }}</dd>
+			
+			<dt>E-mail</dt>
+			<dd>
+				{% if cliente.email %}
+				<a href="mailto:{{ cliente.email }}">{{ cliente.email }}</a>
+				{% else %}
+				-
+				{% endif %}
+			</dd>
+			
+			<dt>Tipo</dt>
+			<dd>{{ coalesce(cliente.tipo.descricao, '-') }}</dd>
+			
+			<dt>Bloqueado</dt>
+			<dd>{{ cliente.bloqueado ? 'sim' : 'não' }}</dd>
+			
+			<dt>Ativo</dt>
+			<dd>{{ cliente.ativo ? 'sim' : 'não' }}</dd>
+		</dl>
+	</div>
+	<div class="span6">Que tal umas estatísticas aqui?</div>
+</div>
+{% endblock %}

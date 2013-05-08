@@ -1,0 +1,42 @@
+{% extends 'base.twig' %}
+
+{% block estilos %}
+<style>
+body {
+	margin-top: 60px;
+}
+</style>
+{% endblock %}
+
+{% block conteudo %}
+<header>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="" class="brand">Central do Veículo &ndash; Painel Administrativo</a>
+				
+				<ul class="nav">
+					<li><a href="{{ url('/clientes') }}">Clientes</a></li>
+					<li><a href="{{ url('/cliente/cadastrar') }}">Cadastrar cliente</a></li>
+					<li><a href="{{ url('/mensagens') }}">Mensagens do sistema</a></li>
+				</ul>
+				
+				<ul class="nav pull-right">
+					<li><a href="{{ url('/logout') }}">Sair</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>
+
+<section class="container">
+	{% block conteudo_interno %}{% endblock %}
+</section>
+
+<footer>
+	<div class="container">
+		<hr>
+		<p class="muted" style="text-align: center">&copy; Inova Websites</p>
+	</div>
+</footer>
+{% endblock %}

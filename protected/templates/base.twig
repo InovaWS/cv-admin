@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	
+	{% if pagina.titulo %}
+	<title>{{ pagina.titulo }} &ndash; Painel Administrativo &ndash; Central do Veículo</title>
+	{% else %}
+	<title>Painel Administrativo &ndash; Central do Veículo</title>
+	{% endif %}
+	
+	<link rel="stylesheet" href="{{ url('/vendor/bootstrap/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ url('/vendor/bootstrap/css/bootstrap-responsive.min.css') }}">
+	{% block estilos %}{% endblock %}
+</head>
+<body>
+	{% block conteudo %}
+	{% endblock %}
+	
+	<script src="{{ url('/vendor/jquery-1.9.1.min.js') }}"></script>
+	<script src="{{ url('/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+	{% block scripts %}{% endblock %}
+</body>
+</html>

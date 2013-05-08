@@ -1,0 +1,22 @@
+{% extends 'clientes/base.twig' %}
+
+{% set pagina = {titulo: 'Veículos de ' ~ cliente.nome} %}
+{% set menu = 'veiculos' %}
+
+{% block painel %}
+<h3>Veículos</h3>
+
+{% if veiculos is empty %}
+<p><em>Este cliente ainda não cadastrou veículos.</em></p>
+{% else %}
+<table class="table table-hover table-striped">
+	<tbody>
+		{% for veiculo in veiculos %}
+		<tr>
+			<td>Teste</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endif %}
+{% endblock %}

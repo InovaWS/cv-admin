@@ -137,11 +137,31 @@ $app->get('/cliente/:id/faturas', function($id) use($app, $database) {
 	$app->render('clientes/faturas.twig', compact('cliente', 'faturas'));
 })->conditions(array('id' => '\d+'))->name('/cliente/faturas');
 
-$app->map('/cliente/:id/alterar', function($id) use($app, $database) {
+$app->map('/cliente/:id/alterar', function($id) use($app, $database, $capturarPost, $validarDados) {
 	$cliente = $database->table('cv2_vendedores')->where('ativo', 1)->orderByAsc('nome')->findOne($id);
 	
 	if ( !$cliente )
 		$app->notFound();
+	
+	if ( $app->request()->isPost() ) {
+		$dados = $capturarPost($app->request());
+		$dados['data_cadastro'] = date('Y-m-d H:i:s');
+		$dados['ativo'] = 1;
+	
+		$cliente->hydrate($dados);
+	
+		$erros = $validarDados($dados);
+	
+		if ( empty($erros) ) {
+			try {
+				$cliente->save();
+				$app->redirect($app->urlFor('/cliente', array('id' => $cliente->id)));
+			}
+			catch ( \PDOException $e ) {
+				$erros = array('falha ao salvar dados: ' . $e->getMessage());
+			}
+		}
+	}
 	
 	$tipos = $database->table('cv2_tipos_vendedores')->orderByAsc('id')->findMany();
 	$cliente->tipo = $database->table('cv2_tipos_vendedores')->findOne($cliente->id_tipo)->asObject();

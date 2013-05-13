@@ -98,33 +98,33 @@
 {% endblock %}
 
 {% block scripts %}
-	{{ parent() }}
-	<script>
-		$(function() {
-			function update() {
-				var $tipo = $('input[name=tipo]:checked');
-				
-				switch ($tipo.val()) {
-				case '1':
-					$('input[name=razao_social]').attr('disabled', true).closest('.control-group').hide();
-					$('input[name=cpf]').removeAttr('disabled').closest('.control-group').show();
-					$('input[name=cnpj]').attr('disabled', true).closest('.control-group').hide();
-					break;
+{{ parent() }}
+<script>
+	$(function() {
+		function update() {
+			var $tipo = $('input[name=tipo]:checked');
+			
+			switch ($tipo.val()) {
+			case '1':
+				$('input[name=razao_social]').attr('disabled', true).closest('.control-group').hide();
+				$('input[name=cpf]').removeAttr('disabled').closest('.control-group').show();
+				$('input[name=cnpj]').attr('disabled', true).closest('.control-group').hide();
+				break;
 
-				case '2':
-				case '3':
-					$('input[name=razao_social]').removeAttr('disabled').closest('.control-group').show();
-					$('input[name=cpf]').attr('disabled', true).closest('.control-group').hide();
-					$('input[name=cnpj]').removeAttr('disabled').closest('.control-group').show();
-					break;
-				}
+			case '2':
+			case '3':
+				$('input[name=razao_social]').removeAttr('disabled').closest('.control-group').show();
+				$('input[name=cpf]').attr('disabled', true).closest('.control-group').hide();
+				$('input[name=cnpj]').removeAttr('disabled').closest('.control-group').show();
+				break;
 			}
+		}
 
+		update();
+
+		$(document).on('change', 'input[name=tipo]', function(event) {
 			update();
-
-			$(document).on('change', 'input[name=tipo]', function(event) {
-				update();
-			});
 		});
-	</script>
+	});
+</script>
 {% endblock %}
